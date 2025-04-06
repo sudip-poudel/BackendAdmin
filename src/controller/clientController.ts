@@ -8,8 +8,8 @@ class ClientController {
         const client = new UserModel({ name, email, password });
         await client.save();
         res.json(client);
+        
     }
-
 }
 
 
