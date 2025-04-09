@@ -1180,6 +1180,7 @@ class AdminController{
             });
 
         } catch (error) {
+            console.error("Error in RegisterAppoinemtService:", error);
             // Handle errors and return an appropriate response
             res.status(500).json({
                 message: "Internal server error while fetching appointment service list"
