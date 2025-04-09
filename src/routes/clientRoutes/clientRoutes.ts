@@ -7,5 +7,8 @@ const router = require('express').Router()
 // Register
 router.post('/register', clientController.RegisterClient)
 
+// Appointment
+router.post('/booking', clientController.BookService)
+
 
 export default router

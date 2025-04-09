@@ -13,6 +13,7 @@ import RegisterAdmin from './service/RegisterAdmin';
 RegisterAdmin()
 
 import AdminRoute from './routes/adminRoutes/adminRoutes'
+import ClientRoutes from "./routes/clientRoutes/clientRoutes";
 
 app.use(express.static("./src/uploads/")) 
 
@@ -22,7 +23,7 @@ app.use(cors({
 
 
 app.use('/admin', AdminRoute )
-app.use('/client', AdminRoute )
+app.use('/client', ClientRoutes )
 
   
 app.listen(PORT, ()=>{

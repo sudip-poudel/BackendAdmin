@@ -35,7 +35,7 @@ sequelize.authenticate()
 
 
 // Syncing the models with the database
-sequelize.sync({ alter: false });
+// sequelize.sync({ alter: false });
 
 // Syncing the models with the database
 sequelize.sync({ force: false })
