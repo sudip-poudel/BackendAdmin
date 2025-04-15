@@ -81,6 +81,12 @@ class UserModel extends Model {
     defaultValue: true,
   })
   declare status: boolean; 
+
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: true,
+  })
+  declare branch: string; 
 }
 
 export default UserModel;

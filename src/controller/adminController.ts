@@ -241,7 +241,12 @@ class AdminController{
     async RegisterStaff(req: Request, res: Response): Promise<void> {
         // Cast the request to include Multer file properties
         const multerReq = req as unknown as MulterRequest;
-        const {name, email, phone, dateOfBirth, gender, address, status, password } = req.body;
+        const {name, email, phone, dateOfBirth, gender, address, status, password, branch } = req.body;
+
+
+        console.log('branch sbdfjsbfdskhfdsbfdsfksd ', branch)
+
+    
         
         // Generate a unique ID for the staff
         const id = uuidv4();
@@ -316,9 +321,9 @@ class AdminController{
         const hashPassword = await bcrypt.hashSync(password, 12);
     
         // Insert staff details into the database
-        await sequelize.query(`INSERT INTO users(id, name, email, password, phoneNumber, profilePicture, DOB, gender, address, role, status, createdAt, updatedAt) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,{
+        await sequelize.query(`INSERT INTO users(id, name, email, password, phoneNumber, profilePicture, DOB, gender, address, role, status, createdAt, updatedAt, branch) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,{
             type: QueryTypes.INSERT,
-            replacements: [id, name, email, hashPassword, phone, staffPhotoPath, dateOfBirth, gender, address, role, status, time, time]
+            replacements: [id, name, email, hashPassword, phone, staffPhotoPath, dateOfBirth, gender, address, role, status, time, time, branch]
         });
     
         // Respond with success message

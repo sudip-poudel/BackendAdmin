@@ -10,5 +10,7 @@ router.post('/register', clientController.RegisterClient)
 // Appointment
 router.post('/booking', clientController.BookService)
 
+router.get('/staffList/:branch', clientController.StaffList )
+
 
 export default router
