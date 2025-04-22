@@ -7,12 +7,17 @@ import BranchModel from "../database/models/branch";
 class ClientController {
 
     async RegisterClient(req: Request, res: Response) {
-        const {name, email, password, cPassword, phone, DOB, address, gender  } = req.body;
-        const client = new UserModel({ name, email, password });
-        await client.save();
-        res.json(client);
-        
-    }
+        try {
+          const { name, email, password, cPassword, phoneNumber, DOB, address, gender } = req.body;
+          const client = new UserModel({ name, email, password, phoneNumber, DOB, address, gender, role: 'customer', status: 1 });
+          await client.save();
+          res.json(client);
+        } catch (error: any) {
+          console.error('Error while registering user:', error);
+          res.status(500).json({ error: error.message, full: error });
+        }
+      }
+      
 
     // Book Service
     async BookService(req: Request, res: Response) {
