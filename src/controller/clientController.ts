@@ -68,6 +68,28 @@ class ClientController {
             res.status(500).json({message: "Error saving branches"});
         }
     }
+    
+    async StaffList(req: Request, res: Response) {
+        try {
+            const branch = req.params.branch;
+            console.log('Getting staff list for branch:', branch);
+    
+            const staffUserList = await UserModel.findAll({
+                where: {
+                    branch,
+                    role: 'staff'
+                }
+            });
+    
+            res.status(200).json({
+                'message' : staffUserList
+            });
+            
+        } catch (error) {
+            console.error('Error fetching staff list:', error);
+            res.status(500).json({ error: 'Failed to fetch staff list' });
+        }
+    }
 }
 
 export default new ClientController;

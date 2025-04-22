@@ -12,6 +12,7 @@ router.post('/booking', clientController.BookService)
 
 // Branches
 router.get('/branches', clientController.BranchesService)
+router.get('/staffList/:branch', clientController.StaffList )
 
 
 export default router
