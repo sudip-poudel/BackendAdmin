@@ -42,4 +42,7 @@ router.get('/appointment-service', authMiddleware.isAuthenticatedUser, adminCont
 router.get('/appointment-service/:id', authMiddleware.isAuthenticatedUser, adminController.FetchSingleAppointmentServiceDetails)
 router.patch('/appointment-service/:id', authMiddleware.isAuthenticatedUser, adminController.UpdateAppointmentServiceDetails)
 
+// Appointment Routes
+router.get('/appointments', authMiddleware.isAuthenticatedUser, adminController.FetchBookings)
+
 export default router

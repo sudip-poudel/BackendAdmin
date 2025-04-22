@@ -1233,6 +1233,31 @@ class AdminController{
             });
         }
     }
+
+  // Fetch booking list from the database
+async FetchBookings(req: Request, res: Response): Promise<void> {
+    try {
+        // Query the database to get all bookings
+        const bookings = await sequelize.query(
+            `SELECT * FROM booking`, 
+            {
+                type: QueryTypes.SELECT, // Define query type as SELECT
+            }
+        );
+
+        // Return the fetched bookings as a response
+        res.status(200).json({
+            message: "Bookings fetched successfully",
+            bookings: bookings,
+        });
+    } catch (error) {
+        // Handle any errors that may occur during execution
+        console.error("Error fetching bookings:", error);
+        res.status(500).json({
+            message: "Internal server error while fetching bookings",
+        });
+    }
+}
     
     // Update appointment service details based on the provided appointment service ID
     async UpdateAppointmentServiceDetails(req: Request, res: Response): Promise<void> {

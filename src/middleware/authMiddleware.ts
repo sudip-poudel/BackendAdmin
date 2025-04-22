@@ -72,7 +72,8 @@ class authMiddleware {
             
         } catch (error) {
             res.status(400).json({
-                message : `Your session has expired. Please login again.`
+                message : `Your session has expired. Please login again.`,
+                error 
             })
         }
     }
