@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import UserModel from '../database/models/user';
 import BookingModel from "../database/models/Booking";
 import {Op} from "sequelize";
+import BranchModel from "../database/models/branch";
 
 class ClientController {
 
@@ -55,6 +56,16 @@ class ClientController {
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: "Error saving booking" });
+        }
+    }
+
+    // Branch Service
+    async BranchesService(req: Request, res: Response) {
+        try{
+            const branchesList = await BranchModel.findAll();
+            return res.status(200).json(branchesList);
+        } catch (e) {
+            res.status(500).json({message: "Error saving branches"});
         }
     }
 }

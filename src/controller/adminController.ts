@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 var validator = require('validator');
 import { v4 as uuidv4 } from 'uuid';
-import { randomInt } from 'crypto';import sequelize from '../database/connection';
+import sequelize from '../database/connection';
 import MulterRequest, { UserRequestInterface } from '../interface/interface';
 import { DeleteFile } from '../service/FileDelete';
 ;
