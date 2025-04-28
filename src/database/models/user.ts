@@ -1,9 +1,20 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  ForeignKey,
+  BelongsTo,
+} from "sequelize-typescript";
+import BookingModel from "./Booking";
+import { UserRole } from "../../controller/clientController";
+import BranchModel from "./branch";
 
 @Table({
-  tableName: 'users',
-  modelName: 'UserModel',
-  timestamps: true, 
+  tableName: "users",
+  modelName: "UserModel",
+  timestamps: true,
 })
 class UserModel extends Model {
   @Column({
@@ -23,12 +34,12 @@ class UserModel extends Model {
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    unique: true, 
+    unique: true,
   })
   declare email: string;
 
   @Column({
-    type: DataType.STRING(15), 
+    type: DataType.STRING(15),
     allowNull: false,
   })
   declare phoneNumber: string;
@@ -46,7 +57,7 @@ class UserModel extends Model {
   declare password: string;
 
   @Column({
-    type: DataType.DATEONLY, 
+    type: DataType.DATEONLY,
     allowNull: false,
   })
   declare DOB: string;
@@ -64,14 +75,14 @@ class UserModel extends Model {
   declare address: string;
 
   @Column({
-    type: DataType.STRING(20),
+    type: DataType.ENUM(...Object.values(UserRole)),
     allowNull: false,
   })
   declare role: string;
 
   @Column({
     type: DataType.STRING(10),
-    allowNull: true, 
+    allowNull: true,
   })
   declare otp: string;
 
@@ -80,13 +91,20 @@ class UserModel extends Model {
     allowNull: false,
     defaultValue: true,
   })
-  declare status: boolean; 
+  declare status: boolean;
 
+  @ForeignKey(() => BranchModel)
   @Column({
-    type: DataType.STRING(100),
+    type: DataType.UUID,
     allowNull: true,
   })
-  declare branch: string; 
+  declare branchId?: string;
+
+  @BelongsTo(() => BranchModel)
+  declare branch: BranchModel;
+
+  @HasMany(() => BookingModel)
+  declare bookings: BookingModel[];
 }
 
 export default UserModel;

@@ -1,69 +1,83 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany,
+} from "sequelize-typescript";
+import UserModel from "./user";
+import BranchModel from "./branch";
+import ServiceModel from "./services";
+import BookingServiceModel from "./BookingToService";
 
 @Table({
-    tableName: 'booking',
-    modelName: 'BookingModel',
-    timestamps: true,
+  tableName: "booking",
+  modelName: "BookingModel",
+  timestamps: true,
 })
-
 class BookingModel extends Model {
-    @Column({
-        primaryKey: true,
-        type: DataType.UUID,
-        defaultValue: DataType.UUIDV4,
-        allowNull: false,
-    })
-    declare id: string;
+  @Column({
+    primaryKey: true,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    allowNull: false,
+  })
+  declare id: string;
 
-    @Column({
-        type: DataType.STRING(200),
-        allowNull: false,
-    })
-    declare location: string;
+  @Column({
+    type: DataType.STRING(200),
+    allowNull: false,
+  })
+  declare name: string;
 
-    @Column({
-        type: DataType.STRING(200),
-        allowNull: false,
-    })
-    declare name: string;
+  @Column({
+    type: DataType.DATEONLY,
+    allowNull: false,
+  })
+  declare date: string;
 
-    @Column({
-        type: DataType.JSON,
-        allowNull: false,
-    })
-    declare services: string[];
+  @Column({
+    type: DataType.TIME,
+    allowNull: false,
+  })
+  declare time: string;
 
-    @Column({
-        type: DataType.TEXT,
-        allowNull: false,
-    })
-    declare staff: string;
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: false,
+  })
+  declare email: string;
 
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: false,
+  })
+  declare phone: string;
 
-    @Column({
-        type: DataType.DATEONLY,
-        allowNull: false,
-    })
-    declare date: string;
+  @BelongsToMany(() => ServiceModel, () => BookingServiceModel)
+  declare services: ServiceModel[];
 
-    @Column({
-        type: DataType.TIME,
-        allowNull: false,
-    })
-    declare time: string;
+  @ForeignKey(() => UserModel)
+  @Column({
+    type: DataType.UUID,
+    allowNull: false,
+  })
+  declare staffId: string;
 
-    @Column({
-        type: DataType.STRING(100),
-        allowNull: false,
-    })
-    declare email: string;
+  @BelongsTo(() => UserModel)
+  declare staff: UserModel;
 
-    @Column({
-        type: DataType.STRING(100),
-        allowNull: false,
-    })
-    declare phone: string;
+  @ForeignKey(() => BranchModel)
+  @Column({
+    type: DataType.UUID,
+    allowNull: false,
+  })
+  declare branchId: string;
+
+  @BelongsTo(() => BranchModel)
+  declare branch: BranchModel;
 }
 
 export default BookingModel;
-
